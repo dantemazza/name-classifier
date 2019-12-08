@@ -1,4 +1,7 @@
+import data as data
 
 
+starting_year = 1960
 
-print("configuartion")
+
+M_names, F_names = data.getData()
