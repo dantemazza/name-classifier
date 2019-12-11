@@ -1,24 +1,24 @@
 import csv
 
-import configuration as const
+import configuration as config
 
 
-
-def getData() -> dict:
+def get_data():
     M_names = []
     F_names = []
     name_M_map = {}
     name_F_map = {}
+    name_map = {}
     with open("NationalNames.csv") as file:
         reader = csv.reader(file, delimiter= ',')
         for row in reader:
             if row[2] == "Year":
                 continue
-            name = row[1]
+            name = row[1].lower()
             gender = row[3]
 
 
-            if int(row[2]) >= const.starting_year:
+            if int(row[2]) >= config.starting_year:
                 if gender == "M":
                     name_M_map[name] = name_M_map[name] + 1 if name in name_M_map else 1
                 else:
@@ -35,13 +35,12 @@ def getData() -> dict:
 
     for key in name_M_map:
         M_names.append(key)
-
+        name_map[key] = True
     for key in name_F_map:
         F_names.append(key)
+        name_map[key] = False
 
-    return M_names, F_names
-
-
+    return M_names, F_names, name_map
 
 
 
