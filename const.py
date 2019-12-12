@@ -8,6 +8,7 @@ mono_suffix = []
 di_suffix = []
 tri_suffix = []
 
+letters = []
 digrams = []
 trigrams = []
 
