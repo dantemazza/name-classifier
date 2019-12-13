@@ -5,14 +5,30 @@ import configuration as config
 import const
 
 def getCommonGrams(words):
-    groupings = [{}] * 3
+    bigrams = {}
+    trigrams = {}
     for word in words:
-        for n in [1, 2, 3]:
-            seg = word[-n:]
-            currgrams = [''.join(x) for x in ngrams(seg, n)]
+        for n in [2, 3]:
+            currgrams = ngrams(word, n)
             for gram in currgrams:
-                groupings[n-1][gram] = groupings[n-1][gram] + 1 if gram in groupings[n-1] else 1
+                gram = ''.join(gram)
+                if n == 2:
+                    bigrams[gram] = bigrams[gram] + 1 if gram in bigrams else 1
+                else:
+                    trigrams[gram] = trigrams[gram] + 1 if gram in trigrams else 1
 
-    const.letters = [x.pop(0) for x in [list(y) for y in (Counter(groupings[0]).most_common(config.mono_sufnum))]]
-    const.digrams = [x.pop(0) for x in [list(y) for y in (Counter(groupings[1]).most_common(config.di_sufnum))]]
-    const.trigrams =[x.pop(0) for x in [list(y) for y in (Counter(groupings[2]).most_common(config.tri_sufnum))]]
+    const.bigrams = [x.pop(0) for x in [list(y) for y in (Counter(bigrams).most_common(config.di_num))]]
+    const.trigrams =[x.pop(0) for x in [list(y) for y in (Counter(trigrams).most_common(config.tri_num))]]
+
+def get_suffixes(words):
+    letters = {}
+    difixes = {}
+    trifixes = {}
+
+    for word in words:
+        letters[word[-1]] = letters[word[-1]] + 1 if word[-1] in letters else 1
+        difixes[word[-2:]] = difixes[word[-2:]] + 1 if word[-2:] in difixes else 1
+        trifixes[word[-3:]] = trifixes[word[-3:]] + 1 if word[-3:] in trifixes else 1
+    const.last_letters = [x.pop(0) for x in [list(y) for y in (Counter(letters).most_common(config.last_letters))]]
+    const.di_suffix = [x.pop(0) for x in [list(y) for y in (Counter(difixes).most_common(config.di_sufnum))]]
+    const.tri_suffix =[x.pop(0) for x in [list(y) for y in (Counter(trifixes).most_common(config.tri_sufnum))]]

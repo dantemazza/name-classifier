@@ -35,10 +35,10 @@ def get_data():
 
     for key in name_M_map:
         M_names.append(key)
-        name_map[key] = True
+        name_map[key] = 1
     for key in name_F_map:
         F_names.append(key)
-        name_map[key] = False
+        name_map[key] = 0
 
     return M_names, F_names, name_map
 

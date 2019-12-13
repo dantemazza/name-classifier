@@ -8,10 +8,14 @@ cv_set_size = 600
 test_set_size = 600
 
 
-#---SUFF FEATURES---#
+#---gram features---#
 
-mono_sufnum = 8
-di_sufnum = 100
-tri_sufnum = 100
+di_num = 100
+tri_num = 100
 
 
+#---suffixes---#
+
+last_letters = 8
+di_sufnum = 50
+tri_sufnum = 50

@@ -4,16 +4,15 @@ name_map = {}
 M_names = []
 F_names = []
 
-mono_suffix = []
+last_letters = []
 di_suffix = []
 tri_suffix = []
 
-letters = []
-digrams = []
+bigrams = []
 trigrams = []
 
-training_set = []
-cv_set = []
+training_set = {}
+cv_set = {}
+test_set = {}
 
-
-
+featureCount = 0
