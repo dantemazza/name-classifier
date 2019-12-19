@@ -24,3 +24,4 @@ def extract(size, labelled=False):
         del const.M_names[index]
         del const.F_names[index]
     return result
+

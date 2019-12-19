@@ -1,8 +1,8 @@
 import dataParser as data
 
 
-starting_year = 1960
-data_extraction_size = 5000
+starting_year = 1900
+data_extraction_size = 3000
 training_size = 1800
 cv_set_size = 600
 test_set_size = 600
@@ -11,7 +11,7 @@ test_set_size = 600
 #---gram features---#
 
 di_num = 100
-tri_num = 100
+tri_num = 200
 
 
 #---suffixes---#
@@ -22,6 +22,6 @@ tri_sufnum = 50
 
 
 #---optim variables---#
-iterations = 3000
+iterations = 2500
 learning_rate = 0.01
 minibatch = 50

@@ -1,10 +1,10 @@
 import const
 import dataParser
 from functions import *
-from classifier.grams import *
+from features.grams import *
 import configuration as config
 import numpy as np
-from classifier.features import *
+from features.extractFeatures import *
 import argparse
 import torch
 import torch.nn as nn
@@ -44,11 +44,18 @@ y_train = torch.from_numpy(const.y_train)
 X_cv = torch.stack([torch.tensor(i) for i in const.X_cv])
 y_cv = torch.from_numpy(const.y_cv)
 
+X_test = torch.stack([torch.tensor(i) for i in const.X_test])
+y_test = torch.from_numpy(const.y_test)
+
 training_set = data.TensorDataset(X_train, y_train)
 training_loader = data.DataLoader(training_set, batch_size=config.minibatch, shuffle=True)
 
 cv_set = data.TensorDataset(X_cv, y_cv)
 cv_loader = data.DataLoader(cv_set, batch_size=config.minibatch, shuffle=False)
+
+test_set = data.TensorDataset(X_test, y_test)
+test_loader = data.DataLoader(test_set, batch_size=config.minibatch, shuffle=False)
+
 
 class Model(nn.Module):
     def __init__(self):
@@ -80,17 +87,20 @@ for i in range(epochs):
         optimizer.step()
         iterations += 1
         if iterations % 200 == 0:
-            correct = 0
-            total = 0
-            for name, gender in cv_loader:
-                name = name.view(-1, const.featureCount).requires_grad_()
-                pred = torch.sigmoid(model(name.float()))
 
-                total += gender.size(0)
-                correct += ((pred.reshape(config.minibatch)-gender.reshape(config.minibatch)).abs_() < 0.5).sum()
+           for num, set in enumerate([cv_loader, test_loader]):
+                correct = 0
+                total = 0
+                for name, gender in set:
+                    name = name.view(-1, const.featureCount).requires_grad_()
+                    pred = torch.sigmoid(model(name.float()))
 
-            accuracy = 100 * correct.item() / total
-            print('Iteration: {}. Cost: {}. Accuracy: {}'.format(iterations, loss.item(), accuracy))
+                    total += gender.size(0)
+                    correct += ((pred.reshape(config.minibatch)-gender.reshape(config.minibatch)).abs_() < 0.5).sum()
+
+                accuracy = 100 * correct.item() / total
+                type = "Test" if num else "CV"
+                print('Type: {}. Iteration: {}. Cost: {}. Accuracy: {}'.format(type, iterations, loss.item(), accuracy))
 
 print("end")
 
