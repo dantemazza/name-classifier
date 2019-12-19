@@ -1,4 +1,4 @@
-import data as data
+import dataParser as data
 
 
 starting_year = 1960
@@ -19,3 +19,9 @@ tri_num = 100
 last_letters = 8
 di_sufnum = 50
 tri_sufnum = 50
+
+
+#---optim variables---#
+iterations = 3000
+learning_rate = 0.01
+minibatch = 50
