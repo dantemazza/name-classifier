@@ -79,7 +79,7 @@ for i in range(epochs):
         loss.backward()
         optimizer.step()
         iterations += 1
-        if not iterations % 200:
+        if not iterations % 1000:
            for num, set in enumerate([cv_loader, test_loader]):
                 correct = 0
                 total = 0
@@ -95,7 +95,14 @@ for i in range(epochs):
                 print('Type: {}- Iteration: {}. Cost: {}. Accuracy: {}'.format(type, iterations, loss.item(), accuracy))
             # print("")
 
-
+if config.IS_DEBUG:
+    for name, param in model.named_parameters():
+        if param.requires_grad and config.IS_DEBUG:
+            print(name)
+            weights = param.data
+            for name, weight in zip(const.featureList, weights[0]):
+                print(f"[{name}] -> {weight}")
+            config.IS_DEBUG = False
 #now we can test custom name data
 
 name_map_custom = dataParser.get_custom_data()
