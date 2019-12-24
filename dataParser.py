@@ -2,13 +2,13 @@ import csv
 import configuration as config
 
 
-def get_data():
+def get_data(filename="NationalNames.csv"):
     M_names = []
     F_names = []
     name_M_map = {}
     name_F_map = {}
     name_map = {}
-    with open("NationalNames.csv") as file:
+    with open(filename) as file:
         reader = csv.reader(file, delimiter= ',')
         for row in reader:
             if row[2] == "Year":
@@ -41,6 +41,10 @@ def get_data():
 
     return M_names, F_names, name_map
 
-
-
-
+def get_custom_data(filename="test_cases/test_names1.csv"):
+    name_map = {}
+    with open(filename) as file:
+        reader = csv.reader(file, delimiter= ',')
+        for row in reader:
+            name_map[row[0]] = 1 if row[1].lower() == 'm' else 0
+    return name_map

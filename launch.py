@@ -35,7 +35,6 @@ const.X_cv, const.y_cv = extractFeatures(const.cv_set)
 const.X_test, const.y_test = extractFeatures(const.test_set)
 
 
-
 #--CLASSIFER--#
 
 X_train = torch.stack([torch.tensor(i) for i in const.X_train])
@@ -66,28 +65,21 @@ class Model(nn.Module):
         return self.linear(X)
 
 model = Model()
-
 cost = torch.nn.BCELoss(reduction='mean')
-# cost = nn.CrossEntropyLoss()
 optimizer = torch.optim.SGD(model.parameters(), lr=config.learning_rate)
-
 epochs = int(config.iterations / config.training_size * config.minibatch)
 
 iterations = 0
 for i in range(epochs):
-    for j, (names, genders) in enumerate(training_loader):
+    for names, genders in training_loader:
         names = names.view(-1, const.featureCount).requires_grad_()
-
         optimizer.zero_grad()
         hypothesis = torch.sigmoid(model(names.float()))
-
         loss = cost(hypothesis.reshape(config.minibatch), genders.float())
         loss.backward()
-
         optimizer.step()
         iterations += 1
-        if iterations % 200 == 0:
-
+        if not iterations % 200:
            for num, set in enumerate([cv_loader, test_loader]):
                 correct = 0
                 total = 0
@@ -100,8 +92,29 @@ for i in range(epochs):
 
                 accuracy = 100 * correct.item() / total
                 type = "Test" if num else "CV"
-                print('Type: {}. Iteration: {}. Cost: {}. Accuracy: {}'.format(type, iterations, loss.item(), accuracy))
+                print('Type: {}- Iteration: {}. Cost: {}. Accuracy: {}'.format(type, iterations, loss.item(), accuracy))
+            # print("")
 
-print("end")
+
+#now we can test custom name data
+
+name_map_custom = dataParser.get_custom_data()
+
+X_custom, y_custom = extractFeatures(name_map_custom)
+
+X_custom_tensor = torch.stack([torch.tensor(i) for i in X_custom])
+y_custom_tensor = torch.from_numpy(y_custom)
+
+custom_set = data.TensorDataset(X_custom_tensor, y_custom_tensor)
+custom_loader = data.DataLoader(custom_set, batch_size=config.minibatch)
 
 
+
+for name, gender in custom_loader:
+    name = name.view(-1, const.featureCount).requires_grad_()
+    pred = torch.sigmoid(model(name.float()))
+
+    c_total = gender.size(0)
+    predictions = (pred.reshape(len(name_map_custom)) - gender.reshape(len(name_map_custom))).abs_() < 0.5
+    for index, name in enumerate(name_map_custom.keys()):
+        print('Name: {}. Gender: {}. Prediction: {}'.format(name, "M" if gender[index].item() else "F", "M" if predictions[index].item() else "F"))
