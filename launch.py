@@ -79,7 +79,7 @@ for i in range(epochs):
         loss.backward()
         optimizer.step()
         iterations += 1
-        if not iterations % 1000:
+        if not iterations % 500:
            for num, set in enumerate([cv_loader, test_loader]):
                 correct = 0
                 total = 0

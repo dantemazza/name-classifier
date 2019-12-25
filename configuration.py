@@ -22,8 +22,8 @@ tri_sufnum = 50
 
 
 #---optim variables---#
-iterations = 100000
-learning_rate = 0.0001
+iterations = 20000
+learning_rate = 0.001
 minibatch = 100
 
 IS_DEBUG = True
