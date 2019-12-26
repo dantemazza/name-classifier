@@ -30,5 +30,5 @@ The model program flow is dictated in launch.py. Run this file to train the mode
 
 ### Acnowledgements
 * The pytorch model is loosely based off of [this](https://www.deeplearningwizard.com/deep_learning/practical_pytorch/pytorch_logistic_regression/) logistic regression classifier from Deep Learning Wizard
-* Training, CV and test sets all extracted randomly from [this dataset](https://www.kaggle.com/kaggle/us-baby-names)
+* Training, CV, and test sets all extracted randomly from [this dataset](https://www.kaggle.com/kaggle/us-baby-names)
 
