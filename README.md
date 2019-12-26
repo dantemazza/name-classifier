@@ -5,7 +5,7 @@ This supervised learning model predicts the gender of American baby names from k
 Here is how to get started with running the project on your machine:
 
 ### Installations
-The main obstacle downloading torch on your machine. It is highly recommended you use [Anaconda] https://anaconda.org/pytorch/pytorch) as your package manager as it will handle all dependencies (**NumPy**, **SciPy**, etc.). You will also need to install nltk:
+The main obstacle downloading torch on your machine. It is highly recommended you use [Anaconda](https://anaconda.org/pytorch/pytorch) as your package manager as it will handle all dependencies (**NumPy**, **SciPy**, etc.). You will also need to install nltk:
 ```
 conda install -c anaconda nltk
 ```
