@@ -1,5 +1,5 @@
 # name-classifier
-This supervised learning model predicts the gender of American baby names using a kaggle dataset. The data is first processed and mapped in dataParser.py. Features used are common ngrams and suffixes(including last letters), extracted using the **nltk** library in features/grams.py. These morphological features are assembled into a **NumPy** design matrix in features/extractFeatures.py. The data is then loaded into **PyTorch** tensors in launch.py to train a Perceptron (single-layered neural network for binary classification). The model will make predictions on CV/Test sets and on any custom dataset in the test_cases directory. 
+This supervised learning model predicts the sex of baby names using a kaggle dataset. The data is first processed and mapped in dataParser.py. Features used are common ngrams and suffixes(including last letters), extracted using the **nltk** library in features/grams.py. These morphological features are assembled into a **NumPy** design matrix in features/extractFeatures.py. The data is then loaded into **PyTorch** tensors in launch.py to train a Perceptron (single-layered neural network for binary classification). The model will make predictions on CV/Test sets and on any custom dataset in the test_cases directory. 
 
 ## Setup
 Here is how to get started with running the project:
