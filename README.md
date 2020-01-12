@@ -1,5 +1,14 @@
 # name-classifier
-This supervised learning model predicts the sex of baby names using a kaggle dataset. The data is first processed and mapped in dataParser.py. Features used are common ngrams and suffixes(including last letters), extracted using the **nltk** library in features/grams.py. These morphological features are assembled into a **NumPy** design matrix in features/extractFeatures.py. The data is then loaded into **PyTorch** tensors in launch.py to train a Perceptron (single-layered neural network for binary classification). The model will make predictions on CV/Test sets and on any custom dataset in the test_cases directory. 
+
+## Introduction
+This supervised learning model predicts the sex of baby names using a kaggle dataset. The objective of this project was to see if we could make an accurate prediction on the sex associated with a name using a limited range of morphological features. This includes:
+* n-gram combinations (i.e. "an", "ine", "hew")
+* suffixes (including last-letters)
+For example, if a name has the suffix "ine", this usually points to female(Josephine, Caroline, etc.). The goal was to get the model to recognize this and perhaps more subtle features that humans would not consciously think about(perhaps a name containing the bigram "lo" is more closely associated with male names, for example). 
+
+
+## Program flow
+The data is first processed and mapped in dataParser.py. Features used are common ngrams and suffixes(including last letters), extracted using the **nltk** library in features/grams.py. These morphological features are assembled into a **NumPy** design matrix in features/extractFeatures.py. The data is then loaded into **PyTorch** tensors in launch.py to train a Perceptron (single-layered neural network for binary classification). The model will make predictions on CV/Test sets and on any custom dataset in the test_cases directory. 
 
 ## Setup
 Here is how to get started with running the project:
