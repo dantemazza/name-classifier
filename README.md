@@ -3,8 +3,8 @@
 ## Introduction
 This supervised learning model predicts the sex of baby names using a kaggle dataset. The objective of this project was to see if we could make an accurate prediction on the sex associated with a name using a limited range of morphological features. This includes:
 * n-gram combinations (i.e. "an", "ine", "hew")
-* suffixes (including last-letters)
-For example, if a name has the suffix "ine", this usually points to female(Josephine, Caroline, etc.). The goal was to get the model to recognize this and perhaps more subtle features that humans would not consciously think about(perhaps a name containing the bigram "lo" is more closely associated with male names, for example). 
+* suffixes (including last-letters)<br />
+For example, if a name has the suffix "ine", this usually points to female(Josephine, Caroline, etc.). The goal was to get the model to recognize this and perhaps more subtle features that humans would not consciously think about(perhaps a name containing the bigram "lo" is more closely associated with male names, as an example). 
 
 
 ## Program flow
